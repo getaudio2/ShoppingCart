@@ -6,6 +6,17 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Infrastructure\NewFolder1\**" />
+    <Compile Remove="Infrastructure\NewFolder\**" />
+    <Content Remove="Infrastructure\NewFolder1\**" />
+    <Content Remove="Infrastructure\NewFolder\**" />
+    <EmbeddedResource Remove="Infrastructure\NewFolder1\**" />
+    <EmbeddedResource Remove="Infrastructure\NewFolder\**" />
+    <None Remove="Infrastructure\NewFolder1\**" />
+    <None Remove="Infrastructure\NewFolder\**" />
+  </ItemGroup>
+
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.6" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.6">
