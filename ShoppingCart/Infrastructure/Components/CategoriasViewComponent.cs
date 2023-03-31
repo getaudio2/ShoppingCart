@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ShoppingCart.Infrastructure.Components
 {
-    public class CategoriasViewComponent:ViewComponent
+    public class CategoriasViewComponent : ViewComponent
     {
 
         private readonly DataContext _context;

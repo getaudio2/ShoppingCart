@@ -9,7 +9,7 @@ namespace ShoppingCart.Infrastructure
 
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         { }
-            public DbSet<Producto> Productos { get; set; }
-            public DbSet<Categoria> Categorias { get; set; }
+        public DbSet<Producto> Productos { get; set; }
+        public DbSet<Categoria> Categorias { get; set; }
     }
 }
