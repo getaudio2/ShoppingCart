@@ -1,4 +1,4 @@
-﻿@model IEnumarable<Producto>
+﻿@model IEnumerable<Producto>
 
 @{
     ViewData["Title"] = "Página productos";
@@ -11,9 +11,9 @@
     {
         <div class="col-4">
             <img src="/media/productos/@item.Imagen" class="img-fluid" alt="" />
-            <h4>@item.Name</h4>
+            <h4>@item.Nombre</h4>
             <div>
-                @Html.Raw(item.Description)
+                @Html.Raw(item.Descripcion)
             </div>
             <p>
                 @item.Precio.ToString("C2")
