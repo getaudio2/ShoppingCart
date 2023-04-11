@@ -7,7 +7,7 @@
 <h1>Productos</h1>
 
 <div class="row">
-    @foreach(var item in Model)
+    @foreach (var item in Model)
     {
         <div class="col-4">
             <img src="/media/productos/@item.Imagen" class="img-fluid" alt="" />
@@ -23,4 +23,16 @@
             </p>
         </div>
     }
+
+    @if (ViewBag.TotalPages > 1)
+    {
+        <div class="d-flex w-100 justify-content-center">
+            <pagination page-count="@ViewBag.TotalPages"
+                    page-target="/products/@ViewBag.CategoriaSlug"
+                    page-number="@ViewBag.PageNumber"
+                    page-range="@ViewBag.PageRange">
+            </pagination>
+        </div>
+    }
+
 </div>
