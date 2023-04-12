@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ShoppingCart.Models;
-using System.Security.Cryptography.X509Certificates;
 
 namespace ShoppingCart.Infrastructure
 {

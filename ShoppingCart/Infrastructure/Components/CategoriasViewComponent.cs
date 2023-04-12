@@ -5,7 +5,6 @@ namespace ShoppingCart.Infrastructure.Components
 {
     public class CategoriasViewComponent : ViewComponent
     {
-
         private readonly DataContext _context;
 
         public CategoriasViewComponent(DataContext context)
