@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using ShoppingCart.Infrastructure;
 using ShoppingCart.Models;
-using System.Linq;
 
 namespace ShoppingCart.Controllers
 {
@@ -30,15 +29,12 @@ namespace ShoppingCart.Controllers
             }
 
             Categoria categoria = await _context.Categorias.Where(c => c.URLSlug == categoriaSlug).FirstOrDefaultAsync();
-
             if (categoria == null) return RedirectToAction("Index");
 
             var productosPorCategoria = _context.Productos.Where(p => p.CategoriaId == categoria.Id);
-
             ViewBag.TotalPages = (int)Math.Ceiling((decimal)productosPorCategoria.Count() / pageSize);
 
             return View(await productosPorCategoria.OrderByDescending(p => p.Id).Skip((p - 1) * pageSize).Take(pageSize).ToListAsync());
-
         }
     }
 }
