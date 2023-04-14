@@ -5,11 +5,11 @@ using ShoppingCart.Models;
 
 namespace ShoppingCart.Controllers
 {
-    public class ControladorProductos : Controller
+    public class ProductosController : Controller
     {
         private readonly DataContext _context;
 
-        public ControladorProductos(DataContext context)
+        public ProductosController(DataContext context)
         {
             _context = context;
         }
