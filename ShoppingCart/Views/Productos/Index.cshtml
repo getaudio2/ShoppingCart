@@ -19,7 +19,7 @@
                 @item.Precio.ToString("C2")
             </p>
             <p>
-                <a class="btn btn-primary" href="#">Add to cart</a>
+                <a class="btn btn-primary" href="#">Añadir al carrito</a>
             </p>
         </div>
     }
@@ -28,7 +28,7 @@
     {
         <div class="d-flex w-100 justify-content-center">
             <pagination page-count="@ViewBag.TotalPages"
-                    page-target="/products/@ViewBag.CategoriaSlug"
+                    page-target="/productos/@ViewBag.CategoriaSlug"
                     page-number="@ViewBag.PageNumber"
                     page-range="@ViewBag.PageRange">
             </pagination>
