@@ -1,0 +1,49 @@
+﻿@model CarroCompraViewModel
+
+@{
+    ViewData["Title"] = "Tu carrito";
+}
+
+<h1>Tu carrito</h1>
+
+@if (Model.ItemsCarrito.Count > 0)
+{
+
+}
+else
+{
+    <h3 class="display-4 text-center">Tu carrito está vacío</h3>
+}
+
+<table class="table">
+    <tr>
+        <th>Producto</th>
+        <th>Cantidad</th>
+        <th></th>
+        <th>Precio</th>
+        <th>Total</th>
+    </tr>
+    @foreach (var item in Model.ItemsCarrito)
+    {
+        <tr>
+            <td>@item.ProductoNombre</td>
+            <td>@item.Cantidad</td>
+            <td>
+                <a class="btn btn-primary btn-sm" asp-action="Añadir" asp-route-id="@item.ProductoId">+</a>
+                <a class="btn btn-info btn-sm" asp-action="Quitar" asp-route-id="@item.ProductoId">-</a>
+                <a class="btn btn-danger btn-sm" asp-action="Eliminar" asp-route-id="@item.ProductoId">Eliminar</a>
+            </td>
+            <td>@item.Precio.ToString("C2")</td>
+            <td>@Model.ItemsCarrito.Where(x => x.ProductoId == item.ProductoId).Sum(x => x.Cantidad * x.Precio).ToString("C2")</td>
+        </tr>
+    }
+    <tr>
+        <td class="text-right" colspan="4">Gran total: @Model.GranTotal.ToString("C2")</td>
+    </tr>
+    <tr>
+        <td class="text-right" colspan="4">
+            <a class="btn btn-danger" asp-action="Vaciar">Vaciar carrito</a>
+            <a class="btn btn-primary" href="#">Checkout</a>
+        </td>
+    </tr>
+</table>
