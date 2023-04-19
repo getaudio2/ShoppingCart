@@ -37,6 +37,11 @@
                 <div class="col-3">
                     <!--<vc:categorias />-->
                     @await Component.InvokeAsync(typeof(CategoriasViewComponent))
+
+                    <div class="bg-success mt-3 p-3 text-white">
+                        <!--<vc:carrito />-->
+                        @await Component.InvokeAsync(typeof(CarritoViewComponent))
+                    </div>
                 </div>
                 <div class="col">
                     <partial name="_NotificationPartial" />
