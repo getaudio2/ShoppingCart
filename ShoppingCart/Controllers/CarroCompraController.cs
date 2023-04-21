@@ -47,5 +47,60 @@ namespace ShoppingCart.Controllers
 
             return Redirect(Request.Headers["Referer"].ToString());
         }
+        public async Task<IActionResult> Quitar(long id)
+        {
+            List<ItemCarrito> carrito = HttpContext.Session.GetJson<List<ItemCarrito>>("Carrito");
+
+            ItemCarrito itemCarrito = carrito.Where(c => c.ProductoId == id).FirstOrDefault();
+
+            if (itemCarrito.Cantidad > 1)
+            {
+                --itemCarrito.Cantidad;
+            }
+            else
+            {
+                carrito.RemoveAll(p => p.ProductoId == id);
+            }
+
+            if (carrito.Count == 0)
+            {
+                HttpContext.Session.Remove("Carrito");
+            }
+            else
+            {
+                HttpContext.Session.SetJson("Carrito", carrito);
+            }
+
+            TempData["Success"] = "Producto quitado con éxito!";
+
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> Eliminar(long id)
+        {
+            List<ItemCarrito> carrito = HttpContext.Session.GetJson<List<ItemCarrito>>("Carrito");
+
+            carrito.RemoveAll(p => p.ProductoId == id);
+
+            if (carrito.Count == 0)
+            {
+                HttpContext.Session.Remove("Carrito");
+            }
+            else
+            {
+                HttpContext.Session.SetJson("Carrito", carrito);
+            }
+
+            TempData["Success"] = "Producto eliminado con éxito!";
+
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Vaciar()
+        {
+            HttpContext.Session.Remove("Carrito");
+
+            return RedirectToAction("Index");
+        }
     }
 }

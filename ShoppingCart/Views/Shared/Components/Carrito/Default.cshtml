@@ -4,8 +4,8 @@
 {
     <p>Items en el carrito: <span class="badge badge-primary">@Model.CantidadItems</span></p>
     <p>Total: <b>@Model.PrecioTotal.ToString("C2")</b></p>
-    <a class="btn btn-primary mb-2" asp-controller="CarroCompra" asp-action="Index">Ver carrito</a>
-    <a href="#" class="btn btn-danger">Vaciar carrito</a>
+    <a class="btn btn-primary" asp-controller="CarroCompra" asp-action="Index">Ver carrito</a>
+    <a class="btn btn-danger" asp-controller="CarroCompra" asp-action="Vaciar">Vaciar carrito</a>
 
 }
 else
