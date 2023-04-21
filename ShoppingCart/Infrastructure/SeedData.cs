@@ -3,12 +3,15 @@ using ShoppingCart.Models;
 
 namespace ShoppingCart.Infrastructure
 {
+    
+    // El SeedData rellena la base de datos con los datos iniciales que le pasamos a continuación
     public class SeedData
     {
         public static void SeedDatabase(DataContext context)
         {
             context.Database.Migrate();
 
+            // Comprueba si ya existen los productos de la DDBB antes de añadirlos
             if (!context.Productos.Any())
             {
                 Categoria frutas = new Categoria { Nombre = "Frutas", URLSlug = "frutas" };

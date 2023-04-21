@@ -5,7 +5,7 @@ namespace ShoppingCart.Infrastructure
 {
     public class DataContext : DbContext
     {
-
+        // Data context que representa los productos y categorias que se pueden recuperar de la base de datos
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         { }
         public DbSet<Producto> Productos { get; set; }

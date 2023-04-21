@@ -5,6 +5,9 @@ using ShoppingCart.Models.ViewModels;
 
 namespace ShoppingCart.Infrastructure.Components
 {
+
+    // ViewComponent del carrito. Sirve para procesar la cantidad de items y precio
+    // que se mostrarán en la preview del Carrito
     public class CarritoViewComponent : ViewComponent
     {
         public IViewComponentResult Invoke()

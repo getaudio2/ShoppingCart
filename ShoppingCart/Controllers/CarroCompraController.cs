@@ -5,14 +5,18 @@ using ShoppingCart.Models.ViewModels;
 
 namespace ShoppingCart.Controllers
 {
+    // Controlador de las funciones para botones en el carro de la compra
     public class CarroCompraController : Controller
     {
+        // Recoger productos de la base de datos
         private readonly DataContext _context;
 
         public CarroCompraController(DataContext context)
         {
             _context = context;
         }
+
+        // Función por defecto del Carro Compra
         public IActionResult Index()
         {
             List<ItemCarrito> carrito = HttpContext.Session.GetJson<List<ItemCarrito>>("Carrito") ?? new List<ItemCarrito>();
@@ -24,6 +28,8 @@ namespace ShoppingCart.Controllers
             };
             return View(carroCompraVM);
         }
+
+        // Función para el botón de aumentar cantidad del producto
         public async Task<IActionResult> Añadir(long id)
         {
             Producto producto = await _context.Productos.FindAsync(id);
@@ -47,6 +53,8 @@ namespace ShoppingCart.Controllers
 
             return Redirect(Request.Headers["Referer"].ToString());
         }
+
+        // Función para el botón de disminuir cantidad del producto
         public async Task<IActionResult> Quitar(long id)
         {
             List<ItemCarrito> carrito = HttpContext.Session.GetJson<List<ItemCarrito>>("Carrito");
@@ -76,6 +84,7 @@ namespace ShoppingCart.Controllers
             return RedirectToAction("Index");
         }
 
+        // Función para el botón de eliminar producto del Carro Compra
         public async Task<IActionResult> Eliminar(long id)
         {
             List<ItemCarrito> carrito = HttpContext.Session.GetJson<List<ItemCarrito>>("Carrito");
@@ -96,6 +105,7 @@ namespace ShoppingCart.Controllers
             return RedirectToAction("Index");
         }
 
+        // Función para el botón de vaciar el Carro Compra por completo
         public IActionResult Vaciar()
         {
             HttpContext.Session.Remove("Carrito");
