@@ -26,7 +26,7 @@ namespace ShoppingCart.Infrastructure
                             Precio = 1.50M,
                             Categoria = frutas,
                             Imagen = "manzanas.jpg"
-                        },
+            },
                         new Producto
                         {
                             Nombre = "Platanos",
