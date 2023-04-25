@@ -1,4 +1,5 @@
-﻿@model CarroCompraViewModel
+﻿@using ShoppingCart.Infrastructure.Components;
+@model CarroCompraViewModel
 
 @{
     ViewData["Title"] = "Tu carrito";
@@ -7,6 +8,7 @@
 <!-- Vista del Carro Compra -->
 @if (Model.ItemsCarrito.Count > 0)
 {
+    <h1>Tu carrito</h1>
     <table class="table">
         <tr>
             <th>Producto</th>
@@ -44,3 +46,6 @@ else
 {
     <h3 class="display-4 text-center">Tu carrito está vacío</h3>
 }
+<div style="position:absolute; bottom:25px">
+    <a class="btn btn-warning" asp-controller="Productos" asp-action="Index">Volver</a>
+</div>
