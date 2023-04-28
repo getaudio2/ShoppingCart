@@ -32,10 +32,16 @@
             </tr>
         }
         <tr>
-            <td class="text-right" colspan="4">Precio total: @Model.GranTotal.ToString("C2")</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="text-right" colspan="4" style="padding-left:10%">Precio total: @Model.GranTotal.ToString("C2")</td>
         </tr>
         <tr>
-            <td class="text-right" colspan="4">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="text-right" colspan="4" style="padding-left:10%">
                 <a class="btn btn-danger" asp-action="Vaciar">Vaciar carrito</a>
                 <a class="btn btn-primary" href="#">Checkout</a>
             </td>
@@ -46,6 +52,6 @@ else
 {
     <h3 class="display-4 text-center">Tu carrito está vacío</h3>
 }
-<div style="position:absolute; bottom:25px">
+<div style="position:absolute; bottom:62px">
     <a class="btn btn-warning" asp-controller="Productos" asp-action="Index">Volver</a>
 </div>
