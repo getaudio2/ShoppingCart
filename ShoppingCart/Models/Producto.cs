@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using ShoppingCart.Infrastructure.Validation;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Security.Policy;
 
@@ -22,5 +23,9 @@ namespace ShoppingCart.Models
         public long CategoriaId { get; set; }
         public Categoria Categoria { get; set; }
         public string Imagen { get; set; }
+
+        [NotMapped]
+        [FileExtension]
+        public IFormFile ImagenUpload { get; set; }
     }
 }
