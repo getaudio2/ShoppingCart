@@ -39,5 +39,26 @@ namespace ShoppingCart.Areas.Admin.Controllers
 
             return View();
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Crear(Producto producto)
+        {
+            ViewBag.Categorias = new SelectList(_context.Categorias, "Id", "Nombre", producto.CategoriaId);
+
+            if (ModelState.IsValid)
+            {
+                producto.URLSlug = producto.Nombre.ToLower().Replace(" ", "-");
+
+                var URLSlug = await _context.Productos.FirstOrDefaultAsync(p => p.URLSlug == producto.URLSlug);
+                if (URLSlug != null) 
+                {
+                    ModelState.AddModelError("", "El producto ya existe");
+                    return View(producto);
+                }
+            }
+
+            return View();
+        }
     }
 }
