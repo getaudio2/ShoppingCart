@@ -85,5 +85,57 @@ namespace ShoppingCart.Areas.Admin.Controllers
 
             return View(producto);
         }
+        // Editar Producto GET
+        public async Task<IActionResult> Editar(long id)
+        {
+            // Buscamos el producto de la DDBB _context
+            Producto producto = await _context.Productos.FindAsync(id);
+
+            ViewBag.Categorias = new SelectList(_context.Categorias, "Id", "Nombre", producto.CategoriaId);
+
+            return View(producto);
+        }
+        // Editar Producto POST
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Editar(int id, Producto producto)
+        {
+            ViewBag.Categorias = new SelectList(_context.Categorias, "Id", "Nombre", producto.CategoriaId);
+
+            if (ModelState.IsValid)
+            {
+                producto.URLSlug = producto.Nombre.ToLower().Replace(" ", "-");
+
+                // Comprobamos si la URL del producto ya existe en la DDBB
+                var URLSlug = await _context.Productos.FirstOrDefaultAsync(p => p.URLSlug == producto.URLSlug);
+                if (URLSlug != null)
+                {
+                    ModelState.AddModelError("", "El producto ya existe");
+                    return View(producto);
+                }
+
+                // Comprobamos si se ha añadido una imagen
+                if (producto.ImagenUpload != null)
+                {
+                    string uploadsDir = Path.Combine(_environment.WebRootPath, "media/productos");
+                    string imagenNombre = Guid.NewGuid().ToString() + "_" + producto.ImagenUpload.FileName;
+
+                    string filePath = Path.Combine(uploadsDir, imagenNombre);
+
+                    FileStream fs = new FileStream(filePath, FileMode.Create);
+                    await producto.ImagenUpload.CopyToAsync(fs);
+                    fs.Close();
+
+                    producto.Imagen = imagenNombre;
+                }
+
+                _context.Update(producto);
+                await _context.SaveChangesAsync();
+
+                TempData["Success"] = "Producto editado con éxito!";
+            }
+
+            return View(producto);
+        }
     }
 }

@@ -24,7 +24,7 @@ namespace ShoppingCart.Models
         [Required, Range(1, int.MaxValue, ErrorMessage = "Escoge una categoria")]
         public long CategoriaId { get; set; }
         public Categoria Categoria { get; set; }
-        public string Imagen { get; set; }
+        public string Imagen { get; set; } = "noimage.png";
 
         [NotMapped]
         [FileExtension]
