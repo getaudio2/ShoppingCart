@@ -33,6 +33,7 @@ namespace ShoppingCart.Areas.Admin.Controllers
                 .ToListAsync());
         }
 
+        // Crear Producto GET
         public IActionResult Crear(int p = 1)
         {
             ViewBag.Categorias = new SelectList(_context.Categorias, "Id", "Nombre");
@@ -40,6 +41,7 @@ namespace ShoppingCart.Areas.Admin.Controllers
             return View();
         }
 
+        // Crear Producto POST
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Crear(Producto producto)
@@ -50,15 +52,38 @@ namespace ShoppingCart.Areas.Admin.Controllers
             {
                 producto.URLSlug = producto.Nombre.ToLower().Replace(" ", "-");
 
+                // Comprobamos si la URL del producto ya existe en la DDBB
                 var URLSlug = await _context.Productos.FirstOrDefaultAsync(p => p.URLSlug == producto.URLSlug);
-                if (URLSlug != null) 
+                if (URLSlug != null)
                 {
                     ModelState.AddModelError("", "El producto ya existe");
                     return View(producto);
                 }
+
+                // Comprobamos si se ha añadido una imagen
+                if (producto.ImagenUpload != null)
+                {
+                    string uploadsDir = Path.Combine(_environment.WebRootPath, "media/productos");
+                    string imagenNombre = Guid.NewGuid().ToString() + "_" + producto.ImagenUpload.FileName;
+
+                    string filePath = Path.Combine(uploadsDir, imagenNombre);
+
+                    FileStream fs = new FileStream(filePath, FileMode.Create);
+                    await producto.ImagenUpload.CopyToAsync(fs);
+                    fs.Close();
+
+                    producto.Imagen = imagenNombre;
+                }
+
+                _context.Add(producto);
+                await _context.SaveChangesAsync();
+
+                TempData["Success"] = "Producto creado con éxito!";
+
+                return RedirectToAction("Index");
             }
 
-            return View();
+            return View(producto);
         }
     }
 }

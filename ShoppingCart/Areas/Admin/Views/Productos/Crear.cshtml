@@ -60,10 +60,12 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 
+    <script src="https://cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script>
     <script>
         $("#ImagenUpload").change(function () {
             readURL(this);
         });
+        CKEDITOR.replace('Descripcion');
     </script>
 
 }
