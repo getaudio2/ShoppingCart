@@ -137,5 +137,32 @@ namespace ShoppingCart.Areas.Admin.Controllers
 
             return View(producto);
         }
+        // Eliminar Producto
+        public async Task<IActionResult> Eliminar(long id)
+        {
+            // Buscamos el producto de la DDBB _context
+            Producto producto = await _context.Productos.FindAsync(id);
+
+            // Comprobamos si tiene una imagen guardada
+            if (!string.Equals(producto.Imagen, "noimage.png"))
+            {
+                string uploadsDir = Path.Combine(_environment.WebRootPath, "media/productos");
+                string oldImagePath = Path.Combine(uploadsDir, producto.Imagen);
+                if (System.IO.File.Exists(oldImagePath))
+                {
+                    // Borramos la imagen guardada
+                    System.IO.File.Delete(oldImagePath);
+                }
+
+            }
+
+            // Borramos el producto de la base de datos
+            _context.Productos.Remove(producto);
+            await _context.SaveChangesAsync();
+
+            TempData["Success"] = "Producto eliminado con éxito!";
+
+            return RedirectToAction("Index");
+        }
     }
 }
