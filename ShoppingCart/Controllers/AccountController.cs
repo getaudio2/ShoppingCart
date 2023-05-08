@@ -53,7 +53,7 @@ namespace ShoppingCart.Controllers
             
                 if (result.Succeeded)
                 {
-                    return Redirect(loginVM.ReturnUrl ?? "/");
+                    return Redirect(loginVM.ReturnUrl ?? "/Admin");
                 }
 
                 ModelState.AddModelError("", "Usuario o contraseña inválidos");
