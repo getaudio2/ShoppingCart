@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ShoppingCart.Models;
+using ShoppingCart.Models.ViewModels;
 
 namespace ShoppingCart.Controllers
 {
+    // Controlador para la creación de cuentas y login/out
     public class AccountController : Controller
     {
         private UserManager<AppUser> _userManager;
@@ -37,6 +39,35 @@ namespace ShoppingCart.Controllers
             }
 
             return View(usuario);
+        }
+
+        // Función del login del usuario
+        public IActionResult Login(string returnUrl) => View(new LoginViewModel { ReturnUrl = returnUrl });
+
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginViewModel loginVM)
+        {
+            if (ModelState.IsValid)
+            { 
+                Microsoft.AspNetCore.Identity.SignInResult result = await _signInManager.PasswordSignInAsync(loginVM.UserName, loginVM.Password, false, false);
+            
+                if (result.Succeeded)
+                {
+                    return Redirect(loginVM.ReturnUrl ?? "/");
+                }
+
+                ModelState.AddModelError("", "Usuario o contraseña inválidos");
+            }
+
+            return View(loginVM);
+        }
+
+        // Función del logout del usuario
+        public async Task<RedirectResult> Logout(string returnUrl = "/") 
+        {
+            await _signInManager.SignOutAsync();
+
+            return Redirect(returnUrl);
         }
     }
 }
