@@ -109,12 +109,12 @@ namespace ShoppingCart.Areas.Admin.Controllers
                 producto.URLSlug = producto.Nombre.ToLower().Replace(" ", "-");
 
                 // Comprobamos si la URL del producto ya existe en la DDBB
-                var URLSlug = await _context.Productos.FirstOrDefaultAsync(p => p.URLSlug == producto.URLSlug);
+                /*var URLSlug = await _context.Productos.FirstOrDefaultAsync(p => p.URLSlug == producto.URLSlug);
                 if (URLSlug != null)
                 {
                     ModelState.AddModelError("", "El producto ya existe");
                     return View(producto);
-                }
+                }*/
 
                 // Comprobamos si se ha añadido una imagen
                 if (producto.ImagenUpload != null)
@@ -137,7 +137,8 @@ namespace ShoppingCart.Areas.Admin.Controllers
                 TempData["Success"] = "Producto editado con éxito!";
             }
 
-            return View(producto);
+            return RedirectToAction("Index");
+            //return View(producto);
         }
         // Eliminar Producto
         public async Task<IActionResult> Eliminar(long id)
