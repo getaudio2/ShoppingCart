@@ -41,6 +41,9 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
 }
+
+app.UseRequestLocalization("es-ES");
+
 app.UseStaticFiles();
 
 app.UseRouting();
