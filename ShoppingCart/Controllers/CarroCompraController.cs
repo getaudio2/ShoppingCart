@@ -110,7 +110,7 @@ namespace ShoppingCart.Controllers
         {
             HttpContext.Session.Remove("Carrito");
 
-            return RedirectToAction("Index");
+            return Redirect(Request.Headers["Referer"].ToString());
         }
     }
 }

@@ -163,6 +163,20 @@ namespace ShoppingCart.Areas.Admin.Controllers
             _context.Productos.Remove(producto);
             await _context.SaveChangesAsync();
 
+            // Borramos el producto del carrito
+            List<ItemCarrito> carrito = HttpContext.Session.GetJson<List<ItemCarrito>>("Carrito");
+
+            carrito.RemoveAll(p => p.ProductoId == producto.Id);
+
+            if (carrito.Count == 0)
+            {
+                HttpContext.Session.Remove("Carrito");
+            }
+            else
+            {
+                HttpContext.Session.SetJson("Carrito", carrito);
+            }
+
             TempData["Success"] = "Producto eliminado con éxito!";
 
             return RedirectToAction("Index");
