@@ -4,6 +4,7 @@
     ViewData["Title"] = "Productos";
 }
 
+<!-- Vista de la sección de productos en Admin -->
 <h1>Productos</h1>
 
 <p>
@@ -36,6 +37,7 @@
                 <td>
                     <img src="/media/productos/@item.Imagen" width="100" alt="" />
                 </td>
+                <!-- Funciones que permiten al Admin editar o eliminar los productos de la base de datos-->
                 <td>
                     <a asp-action="Editar" asp-route-id="@item.Id">Editar</a>
                     <a asp-action="Eliminar" asp-route-id="@item.Id" class="confirmDeletion">Eliminar</a>
@@ -45,6 +47,7 @@
     </tbody>
 </table>
 
+<!-- Paginación -->
 <div class="d-flex w-100 justify-content-center">
     <pagination page-count="@ViewBag.TotalPages"
                 page-target="/admin/productos/@ViewBag.CategorySlug"

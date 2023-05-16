@@ -1,4 +1,5 @@
 ﻿@using ShoppingCart.Infrastructure.Components;
+<!-- Vista general de la sección del comprador -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,11 +10,12 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/ShoppingCart.styles.css" asp-append-version="true" />
 </head>
-<body>
+<body style="background-image: linear-gradient(180deg, rgba(0,0,0,1), rgba(0,0,0,0) 9%)">
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3" style="background-color: lightcyan">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Walmart</a>
+        <!-- Barra de navegación -->
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3" style="background-color: white; padding-bottom: 18px; padding-top: 17px">
+            <div class="container-fluid" style="margin:auto; width:97%">
+                <a class="navbar-brand" style="font-weight: bold; font-size:22px" asp-area="" asp-controller="Home" asp-action="Index">Walmart</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -23,19 +25,19 @@
                         @if (User.Identity?.IsAuthenticated ?? false)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark">Hola, @User.Identity.Name</a>
+                                <a class="nav-link text-dark" style="font-size:17px">Hola, @User.Identity.Name</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="btn btn-primary" asp-area="Admin" asp-controller="Productos" asp-action="Index">Productos</a>
+                            <li class="nav-item" style="margin-top:8px; margin-left:6px">
+                                <a class="navbar-brand" style="font-weight: bold; font-size:17px; color:black" asp-area="Admin" asp-controller="Productos" asp-action="Index">Productos</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="btn btn-danger" asp-controller="Account" asp-action="Logout">Logout</a>
+                            <li class="nav-item" style="margin-top:8px">
+                                <a class="navbar-brand" style="font-weight: bold; font-size:17px; color:black" asp-controller="Account" asp-action="Logout">Logout</a>
                             </li>
 
                             @if (User.IsInRole("Admin") || User.IsInRole("Editor"))
                             {
-                                <li class="nav-item">
-                                    <a class="btn btn-primary" asp-area="Admin" asp-controller="Productos" asp-action="Index">Productos</a>
+                                <li class="nav-item" style="margin-top:8px; margin-left:6px">
+                                    <a class="navbar-brand" style="font-weight: bold; font-size:17px; color:black" asp-area="Admin" asp-controller="Productos" asp-action="Index">Productos</a>
                                 </li>
                             }
                         }
