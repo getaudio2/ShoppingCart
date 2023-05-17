@@ -6,26 +6,48 @@
 }
 
 <!-- Muestra una lista de los productos según la categoria. También muestra los botones para cambiar de página. -->
-<h1>Productos</h1>
+<h2 style="padding-bottom:20px">Productos</h2>
+
+<style>
+    <!-- Animación para hacer zoom en los productos al pasar el ratón -->
+    .productos{
+        transition: transform .5s;
+    }
+
+    .productos:hover {
+        transform: scale(1.1);
+    }
+    <!-- Añade 3 puntos cuando la descripción es demasiado larga -->
+    .descripcion {
+    overflow: hidden;
+    }
+</style>
 
 <div class="row">
     @foreach (var item in Model)
     {
-        <div class="col-3">
-            <img src="/media/productos/@item.Imagen" style="width: 280px; height: 280px;" class="img-fluid" alt="" />
-            <h4>@item.Nombre</h4>
-            <div>
-                @Html.Raw(item.Descripcion)
+        <div class="col-3 productos">
+            <img src="/media/productos/@item.Imagen" style="width: 260px; height: 260px;" class="img-fluid" alt="" />
+            <div class="descProductos" style="background:white; border-style: solid; padding-top:5px; padding-left:5px;">
+                <h4>@item.Nombre</h4>
+                <div class="descripcion">
+                    @Html.Raw(item.Descripcion)
+                </div>
+                <p>
+                    @item.Precio.ToString("C2")
+                </p>
+                <p style="text-align: center;">
+                    <a class="navbar-brand" style="font-weight: bold; font-size:17px; color:black;" asp-controller="CarroCompra" asp-action="Añadir" asp-route-id="@item.Id">Añadir al carrito</a>
+                </p>
             </div>
-            <p>
-                @item.Precio.ToString("C2")
-            </p>
-            <p>
-                <a class="btn btn-primary" asp-controller="CarroCompra" asp-action="Añadir" asp-route-id="@item.Id">Añadir al carrito</a>
-            </p>
         </div>
     }
-    <div class="col-3" style="position:absolute; right:20px">
+    <div class="col-3 categorias" style="position:absolute; right:20px">
+        <form asp-controller="Productos" asp-action="Index">
+            <input type="text" name="SearchString" />
+            <input type="submit" value="Buscar" />
+        </form>
+
         @await Component.InvokeAsync(typeof(CategoriasViewComponent))
 
         <div class="bg-success mt-3 p-3 text-white">
@@ -35,7 +57,7 @@
 
     @if (ViewBag.TotalPages > 1)
     {
-        <div class="d-flex w-100 justify-content-center">
+        <div class="d-flex w-100 justify-content-center" style="padding-top:25px">
             <pagination page-count="@ViewBag.TotalPages"
                     page-target="/productos/@ViewBag.CategoriaSlug"
                     page-number="@ViewBag.PageNumber"

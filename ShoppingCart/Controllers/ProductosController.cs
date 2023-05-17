@@ -17,12 +17,19 @@ namespace ShoppingCart.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index(string categoriaSlug = "", int p = 1)
+        public async Task<IActionResult> Index(string searchString,string categoriaSlug = "", int p = 1)
         {
             int pageSize = 3;
             ViewBag.PageNumber = p;
             ViewBag.PageRange = pageSize;
             ViewBag.CategoriaSlug = categoriaSlug;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                ViewBag.TotalPages = (int)Math.Ceiling((decimal)_context.Productos.Where(p => p.Nombre.Contains(searchString)).Count() / pageSize);
+
+                return View(await _context.Productos.Where(p => p.Nombre.Contains(searchString)).OrderByDescending(p => p.Id).Skip((p - 1) * pageSize).Take(pageSize).ToListAsync());
+            }
 
             // Si el usuario selecciona "Todos los productos" recogemos
             // todos los productos y los distribuimos calculando el número de páginas por cada 3 productos
