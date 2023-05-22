@@ -43,10 +43,6 @@
         </div>
     }
     <div class="col-3 categorias" style="position:absolute; right:20px">
-        <form asp-controller="Productos" asp-action="Index">
-            <input type="text" name="SearchString" />
-            <input type="submit" value="Buscar" />
-        </form>
 
         @await Component.InvokeAsync(typeof(CategoriasViewComponent))
 
