@@ -2,6 +2,7 @@
 
 namespace ShoppingCart.Models
 {
+    // Modelo Usuario con atributos para pasar a objetos IdentityUser (AppUser)
     public class Usuario
     {
         public string Id { get; set; }

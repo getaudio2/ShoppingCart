@@ -2,6 +2,8 @@
 
 namespace ShoppingCart.Models.ViewModels
 {
+    // Modelo de vista que representa la información visualizada
+    // específicamente en la vista de login
     public class LoginViewModel
     {
         [Required, MinLength(2, ErrorMessage = "Longitud mínima: 2")]
